@@ -20,7 +20,7 @@ return new class extends Migration
             $table->longText('input');
             $table->longText('output')->nullable();
             $table->foreignIdFor(User::class, 'caller_id');
-            $table->foreignIdFor(User::class, 'processor_id');
+            $table->foreignIdFor(User::class, 'processor_id')->nullable();
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
         });

@@ -43,8 +43,7 @@ class ApiController extends Controller
         $hoquJob = HoquJob::create([
             'status' => HoquJobStatus::New,
             'input' => $bodyStr,
-            'caller_id' => $request->user()->id,
-            'processor_id' => $this->service->getAvailableProcesserId($bodyStr)
+            'caller_id' => $request->user()->id
         ]);
 
         $this->service->addStoreJob($hoquJob, $request->name, $request->geometry);
