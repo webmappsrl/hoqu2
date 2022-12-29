@@ -2,9 +2,10 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Testing\Fluent\AssertableJson;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ApiControllerTest extends TestCase
 {
@@ -18,5 +19,20 @@ class ApiControllerTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
+    }
+
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    public function test_store()
+    {
+        $response = $this->postJson('/api/store');
+
+        $response->assertUnauthorized()
+            ->assertJson(
+                fn (AssertableJson $json) => $json->hasAll(['message'])
+            );
     }
 }
