@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\HoquJob;
 use Illuminate\Bus\Queueable;
 use App\Services\HoquJobService;
 use Illuminate\Queue\SerializesModels;
@@ -37,7 +38,7 @@ abstract class AbstractOwnedJob implements ShouldQueue
    *
    * @return void
    */
-  public function __construct($hoqu_job)
+  public function __construct(HoquJob $hoqu_job)
   {
     $this->hoqu_job = $hoqu_job;
     /**

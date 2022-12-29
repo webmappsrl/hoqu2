@@ -49,6 +49,6 @@ class ApiController extends Controller
 
         $this->service->addStoreJob($hoquJob, $request->name, $request->geometry);
 
-        return response(['message' => 'ok']);
+        return response(['message' => 'ok', 'created' => $hoquJob->id]);
     }
 }
