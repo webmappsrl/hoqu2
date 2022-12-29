@@ -18,8 +18,8 @@ class LaravelJob extends Model
    */
   public $timestamps = false;
 
-  public function hokuJobs()
+  public function hokuJob()
   {
-    return $this->belongsToMany(HoquJob::class);
+    return $this->belongsTo(HoquJob::class, 'hoqu_job_id');
   }
 }
