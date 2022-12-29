@@ -2,6 +2,11 @@
 
 namespace App\Jobs;
 
+/**
+ * StoreJob class
+ *
+ * The store job that validate input and start the HokuJob pipeline
+ */
 class StoreJob extends AbstractOwnedJob
 {
     /**

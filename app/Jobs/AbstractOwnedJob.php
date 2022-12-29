@@ -12,12 +12,17 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use App\Jobs\Middleware\HoquSubJobMiddleware;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 
+/**
+ * AbstractOwnedJob class
+ *
+ * An abstract class for all jobs owned by an HoquJob
+ */
 abstract class AbstractOwnedJob implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
   /**
-   * Undocumented variable
+   * The service that handle jobs
    *
    * @var \App\Services\HoquJobService
    */
@@ -25,7 +30,7 @@ abstract class AbstractOwnedJob implements ShouldQueue
 
 
   /**
-   * Undocumented variable
+   * The model to attach this job
    *
    * @var \App\Models\HoquJob
    */
@@ -49,7 +54,7 @@ abstract class AbstractOwnedJob implements ShouldQueue
 
 
   /**
-   * Undocumented function
+   * Return a protected property
    *
    * @return \App\Models\HoquJob
    */

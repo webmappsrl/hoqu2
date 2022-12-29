@@ -18,6 +18,12 @@ class LaravelJob extends Model
    */
   public $timestamps = false;
 
+
+  /**
+   * The owner HokuJob (nullable)
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+   */
   public function hokuJob()
   {
     return $this->belongsTo(HoquJob::class, 'hoqu_job_id');

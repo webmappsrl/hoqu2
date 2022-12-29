@@ -17,7 +17,7 @@ use Illuminate\Queue\Events\JobQueued;
 class JobEventsSubscriber
 {
     /**
-     * Undocumented variable
+     * The service that handle jobs
      *
      * @var \App\Services\HoquJobService
      */
@@ -29,7 +29,7 @@ class JobEventsSubscriber
     }
 
     /**
-     * Undocumented function
+     * If the job has property named "hoqu_job" attach this job to HoquJob model
      *
      * @param \Illuminate\Queue\Events\JobQueued $event
      * @return void

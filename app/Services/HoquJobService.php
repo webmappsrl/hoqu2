@@ -37,6 +37,12 @@ class HoquJobService
   }
 
 
+  /**
+   * This should return an User/instance id that can execute a job based on input
+   *
+   * @param [type] $input
+   * @return integer
+   */
   public function getAvailableProcesserId($input): int
   {
     //must return a valid User id

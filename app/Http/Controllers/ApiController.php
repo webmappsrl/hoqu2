@@ -7,23 +7,33 @@ use App\Models\HoquJob;
 use Illuminate\Http\Request;
 use App\Services\HoquJobService;
 
+/**
+ * ApiController class
+ *
+ * The main api routes controller
+ */
 class ApiController extends Controller
 {
 
     /**
-     * Undocumented variable
+     * The service to handle jobs
      *
      * @var \App\Services\HoquJobService
      */
     protected $service;
 
+    /**
+     * The constructor method
+     *
+     * @param HoquJobService $service
+     */
     function __construct(HoquJobService $service)
     {
         $this->service = $service;
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new HoquJob with a LaravelJob.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -46,6 +56,7 @@ class ApiController extends Controller
             'caller_id' => $request->user()->id
         ]);
 
+        // LARAVEL JOB CREATION
         $this->service->addStoreJob($hoquJob, $body->get('name'), $body->get('input'));
 
         return response(['message' => 'created', 'job_id' => $hoquJob->id]);
