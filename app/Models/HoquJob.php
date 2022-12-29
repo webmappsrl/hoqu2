@@ -58,7 +58,7 @@ class HoquJob extends Model
         return $this->belongsTo(User::class, 'processor_id');
     }
 
-    public function jobs()
+    public function laravelJobs()
     {
         return $this->hasMany(LaravelJob::class);
     }

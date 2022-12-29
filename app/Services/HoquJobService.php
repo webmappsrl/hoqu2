@@ -33,7 +33,7 @@ class HoquJobService
    */
   public function addJobToHoquJob(LaravelJob $job, HoquJob $hoquJob)
   {
-    $hoquJob->jobs()->save($job);
+    $hoquJob->laravelJobs()->save($job);
   }
 
 
