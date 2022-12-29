@@ -49,12 +49,12 @@ class HoquJob extends Model
 
     public function caller_id()
     {
-        return $this->hasOne(User::class, 'caller_id');
+        return $this->belongsTo(User::class, 'caller_id');
     }
 
     public function processor_id()
     {
-        return $this->hasOne(User::class, 'processor_id');
+        return $this->belongsTo(User::class, 'processor_id');
     }
 
     public function jobs()
