@@ -62,16 +62,4 @@ class HoquJob extends Model
     {
         return $this->hasMany(LaravelJob::class);
     }
-
-
-    /**
-     *
-     * SERVICES
-     *
-     **/
-
-    public function addStoreJob()
-    {
-        $this->hoquJobService->addStoreJob($this, 'test', '{}');
-    }
 }
