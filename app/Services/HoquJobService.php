@@ -16,16 +16,16 @@ class HoquJobService
    *
    * @param HoquJob $hoquJob
    * @param string $name
-   * @param [type] $geometry
+   * @param [type] $input
    * @return void
    */
-  public function addStoreJob(HoquJob $hoquJob, string $name, $geometry)
+  public function addStoreJob(HoquJob $hoquJob, string $name, $input)
   {
-    StoreJob::dispatch($hoquJob, $name, $geometry)->onQueue('store');
+    StoreJob::dispatch($hoquJob, $name, $input)->onQueue('store');
   }
 
   /**
-   * Attach a LaravelJob model to HoquJob model many to many relation
+   * Attach a LaravelJob model to HoquJob model 1:N relation
    *
    * @param LaravelJob $job
    * @param HoquJob $hoquJob
@@ -33,7 +33,7 @@ class HoquJobService
    */
   public function addJobToHoquJob(LaravelJob $job, HoquJob $hoquJob)
   {
-    $hoquJob->jobs()->attach($job);
+    $hoquJob->jobs()->save($job);
   }
 
 

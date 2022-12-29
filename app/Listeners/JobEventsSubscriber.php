@@ -7,7 +7,13 @@ use App\Models\LaravelJob;
 use App\Services\HoquJobService;
 use Illuminate\Queue\Events\JobQueued;
 
-
+/**
+ * JobEventsSubscriber class
+ *
+ * Listener for some Queue/Job events
+ *
+ * https://laravel.com/docs/9.x/events#writing-event-subscribers
+ */
 class JobEventsSubscriber
 {
     /**

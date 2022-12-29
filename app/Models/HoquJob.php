@@ -16,7 +16,8 @@ class HoquJob extends Model
         'input',
         'output',
         'caller_id',
-        'processor_id'
+        'processor_id',
+        'name'
     ];
 
     /**
@@ -47,19 +48,19 @@ class HoquJob extends Model
         $this->hoquJobService = app()->make(HoquJobService::class);
     }
 
-    public function caller_id()
+    public function caller()
     {
         return $this->belongsTo(User::class, 'caller_id');
     }
 
-    public function processor_id()
+    public function processor()
     {
         return $this->belongsTo(User::class, 'processor_id');
     }
 
     public function jobs()
     {
-        return $this->belongsToMany(LaravelJob::class, 'hoqu_job_job', 'hoqu_job_id', 'job_id');
+        return $this->hasMany(LaravelJob::class);
     }
 
 

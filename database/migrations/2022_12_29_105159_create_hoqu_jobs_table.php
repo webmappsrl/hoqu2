@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('hoqu_jobs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('status')->index();
+            $table->string('name')->index();
             $table->longText('input');
             $table->longText('output')->nullable();
             $table->foreignIdFor(User::class, 'caller_id');

@@ -12,6 +12,14 @@ class LaravelJob extends Model
 {
   protected $table = 'jobs';
   /**
-   * READONLY MODEL
+   * Indicates if the model should be timestamped.
+   *
+   * @var bool
    */
+  public $timestamps = false;
+
+  public function hokuJobs()
+  {
+    return $this->belongsToMany(HoquJob::class);
+  }
 }

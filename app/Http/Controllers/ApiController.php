@@ -30,24 +30,24 @@ class ApiController extends Controller
      */
     public function store(Request $request)
     {
-        //must have: name, geometry
+        //must have: name, input
 
-        //TODO validate
+        //TODO: validate?
 
         $body = $request->json();
-        $bodyStr = json_encode($body->all());
-
+        $inputAsString = json_encode($body->get('input'));
 
 
         // HOQU JOB CREATION
         $hoquJob = HoquJob::create([
             'status' => HoquJobStatus::New,
-            'input' => $bodyStr,
+            'input' => $inputAsString,
+            'name' => $body->get('name'),
             'caller_id' => $request->user()->id
         ]);
 
-        $this->service->addStoreJob($hoquJob, $request->name, $request->geometry);
+        $this->service->addStoreJob($hoquJob, $body->get('name'), $body->get('input'));
 
-        return response(['message' => 'ok', 'created' => $hoquJob->id]);
+        return response(['message' => 'created', 'job_id' => $hoquJob->id]);
     }
 }
