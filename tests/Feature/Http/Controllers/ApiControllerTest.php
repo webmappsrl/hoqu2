@@ -13,11 +13,12 @@ class ApiControllerTest extends TestCase
 {
 
     /**
-     * A basic feature test example.
+     * Check existence of route /api/store
+     * must be unauthorized and it must has "message" key in response body
      *
      * @return void
      */
-    public function test_store_route_existence()
+    public function test_store_unauthorized_existence()
     {
         $response = $this->postJson('/api/store');
 
@@ -27,7 +28,15 @@ class ApiControllerTest extends TestCase
             );
     }
 
-    public function test_store_jobs_creation()
+    /**
+     * Check full functionalities of authorized store api endpoint
+     *
+     * must has a "message" and "job_id" keys in response body
+     * must has create an HoquJob with 1 LaravelJob
+     *
+     * @return void
+     */
+    public function test_store_authorized_jobs_creation()
     {
 
         $user = User::first();
@@ -37,9 +46,15 @@ class ApiControllerTest extends TestCase
         ]];
         $response = $this->actingAs($user)->postJson('/api/store', $data);
 
+        $jobId = $response['job_id'];
+
         $response->assertStatus(200)
             ->assertJson(
                 fn (AssertableJson $json) => $json->hasAll(['message', 'job_id'])
             );
+
+        $hoquJob = HoquJob::find($jobId);
+        $this->assertTrue($hoquJob instanceof HoquJob);
+        $this->assertTrue($hoquJob->laravelJobs->count() === 1);
     }
 }
