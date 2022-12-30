@@ -21,9 +21,9 @@ class UserService
    * @param string $role
    * @param string $api_token
    * @param string $endpoint
-   * @return object
+   * @return array
    */
-  public function createInstanceUser($ip, $role, $api_token, $endpoint)
+  public function createInstanceUser($ip, $hoqu_roles, $hoqu_api_token = '', $endpoint = '', $hoqu_processor_capabilities = [])
   {
 
     //TODO? validate input like ip
@@ -37,10 +37,10 @@ class UserService
       'name' => $name,
       'email_verified_at' => now(),
       'password' => $password,
-      'api_token' => $api_token,
+      'hoqu_api_token' => $hoqu_api_token,
       'endpoint' => $endpoint,
-      'is_processor' => $role == 'processor',
-      'is_caller' => $role == 'caller'
+      'hoqu_roles' => $hoqu_roles,
+      'hoqu_processor_capabilities' => $hoqu_processor_capabilities
     ];
 
     $user = User::firstOrCreate($newUserFill);
@@ -51,6 +51,38 @@ class UserService
 
 
     return ['user' => $user, 'token' => $token];
+  }
+
+
+  /**
+   * Create a register user or only update the password if exists
+   *
+   * @param string $password
+   * @return \App\Models\User;
+   */
+  public function createRegisterUser($password)
+  {
+    $email = 'register@webmapp.it';
+    $passwordHash = Hash::make($password);
+
+    $userQuery = User::where('email', $email);
+    if ($userQuery->count() > 0) {
+      $user = $userQuery->first();
+      $user->password = $passwordHash;
+      $user->save();
+      //remove all previous tokens if user exists
+      $user->tokens()->delete();
+    } else {
+      $user = User::create([
+        'name' => 'register',
+        'email' => $email,
+        'password' => $passwordHash,
+        'email_verified_at' => now(),
+        'hoqu_roles' => ['register']
+      ]);
+    }
+
+    return $user;
   }
 
   /**
