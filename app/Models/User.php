@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use Illuminate\Notifications\Notifiable;
+
 use Wm\WmPackage\Model\User as Authenticable;
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticable
 {
@@ -21,9 +22,9 @@ class User extends Authenticable
         'name',
         'email',
         'password',
-        'api_token',
-        'is_caller',
-        'is_processor',
+        'hoqu_api_token',
+        'hoqu_roles',
+        'hoqu_processor_capabilites',
         'endpoint'
     ];
 
@@ -44,5 +45,7 @@ class User extends Authenticable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'hoqu_processor_capabilites' => AsCollection::class, //TODO: add custom casting with enum
+        'hoqu_roles' => AsCollection::class //TODO: add custom casting with enum
     ];
 }
