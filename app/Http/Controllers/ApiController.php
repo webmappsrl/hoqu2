@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\HoquJobStatus;
+use App\Models\User;
 use App\Models\HoquJob;
+use App\Enums\HoquJobStatus;
 use Illuminate\Http\Request;
+use App\Services\UserService;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * ApiController class
@@ -42,5 +45,62 @@ class ApiController extends Controller
         $hoquJob->addStoreJob($body->get('name'), $body->get('input'));
 
         return response(['message' => 'created', 'job_id' => $hoquJob->id]);
+    }
+
+    public function register(Request $request, UserService $userService)
+    {
+        $fields = $request->validate([
+            'password' => 'required|string',
+            'hoqu_roles' => 'required|array',
+            'endpoint' => 'required|string',
+            'hoqu_processor_capabilities' => 'required|array',
+        ]);
+
+        $arr = $userService->createInstanceUser(
+            $request->ip(),
+            $fields['password'], //plain text password
+            $fields['hoqu_roles'],
+            'TODO', //TODO: hoku_api_token
+            $fields['endpoint'],
+            $fields['hoqu_processor_capabilities']
+        );
+
+        $response = [
+            'user' => $arr['user'],
+            'token' => $arr['token'],
+        ];
+
+        return response($response, 201);
+    }
+
+
+    public function registerLogin(Request $request)
+    {
+        $fields = $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        // Check email
+        $user = User::where('email', $fields['email'])
+            ->whereJsonContains('hoqu_roles', 'register')
+            ->first();
+
+        // Check password
+        if (!$user || !Hash::check($fields['password'], $user->password)) {
+            return response([
+                'message' => 'Bad creds',
+            ], 401);
+        }
+
+        //register a new token with specific abilities
+        $token = $user->createToken('register', ['register-users'])->plainTextToken;
+
+        $response = [
+            'user' => $user,
+            'token' => $token,
+        ];
+
+        return response($response, 201);
     }
 }

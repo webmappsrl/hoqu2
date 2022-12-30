@@ -46,7 +46,7 @@ class User extends Authenticable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'hoqu_processor_capabilites' => AsCollection::class, //TODO: add custom casting with enum
-        'hoqu_roles' => AsCollection::class //TODO: add custom casting with enum
+        'hoqu_processor_capabilites' => 'array', //TODO: add custom casting with enum
+        'hoqu_roles' => 'array' //TODO: add custom casting with enum
     ];
 }
