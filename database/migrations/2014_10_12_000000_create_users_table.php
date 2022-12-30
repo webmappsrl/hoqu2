@@ -21,6 +21,12 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->string('api_token', 100)->nullable();
+            //TODO: maybe is better only the domain?
+            $table->string('endpoint')->nullable();
+            //TODO: maybe is better a role column with enum instead is_caller/is_processor ?
+            $table->boolean('is_caller')->default(false);
+            $table->boolean('is_processor')->default(false);
         });
     }
 
