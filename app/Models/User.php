@@ -21,6 +21,10 @@ class User extends Authenticable
         'name',
         'email',
         'password',
+        'api_token',
+        'is_caller',
+        'is_processor',
+        'endpoint'
     ];
 
     /**

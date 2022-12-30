@@ -11,6 +11,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ApiControllerTest extends TestCase
 {
+    use RefreshDatabase;
 
     /**
      * Check existence of route /api/store
@@ -24,7 +25,9 @@ class ApiControllerTest extends TestCase
 
         $response->assertUnauthorized()
             ->assertJson(
-                fn (AssertableJson $json) => $json->hasAll(['message'])
+                function (AssertableJson $json) {
+                    return $json->hasAll(['message']);
+                }
             );
     }
 
@@ -39,7 +42,7 @@ class ApiControllerTest extends TestCase
     public function test_store_authorized_jobs_creation()
     {
 
-        $user = User::first();
+        $user = User::factory()->create();
         $data = ['name' => 'AddLocationsToPoint', 'input' => [
             "type" => "Point",
             "coordinates" => [1, 2]
