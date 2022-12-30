@@ -21,12 +21,10 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->string('api_token', 100)->nullable();
-            //TODO: maybe is better only the domain?
+            $table->string('hoqu_api_token', 100)->nullable();
             $table->string('endpoint')->nullable();
-            //TODO: maybe is better a role column with enum instead is_caller/is_processor ?
-            $table->boolean('is_caller')->default(false);
-            $table->boolean('is_processor')->default(false);
+            $table->json('hoqu_roles')->nullable();
+            $table->json('hoqu_processor_capabilites')->nullable();
         });
     }
 
