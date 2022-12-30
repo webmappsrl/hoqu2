@@ -4,13 +4,10 @@ namespace App\Jobs;
 
 use App\Models\HoquJob;
 use Illuminate\Bus\Queueable;
-use App\Services\HoquJobService;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Jobs\Middleware\HoquSubJobMiddleware;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 
 /**
  * AbstractOwnedJob class
@@ -20,14 +17,6 @@ use Illuminate\Contracts\Queue\ShouldBeUnique;
 abstract class AbstractOwnedJob implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-  /**
-   * The service that handle jobs
-   *
-   * @var \App\Services\HoquJobService
-   */
-  protected $service;
-
 
   /**
    * The model to attach this job
@@ -46,10 +35,6 @@ abstract class AbstractOwnedJob implements ShouldQueue
   public function __construct(HoquJob $hoqu_job)
   {
     $this->hoqu_job = $hoqu_job;
-    /**
-     * @var \App\Services\HoquJobService
-     */
-    $this->service = app()->make(HoquJobService::class);
   }
 
 
