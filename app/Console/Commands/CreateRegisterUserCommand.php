@@ -21,7 +21,7 @@ class CreateRegisterUserCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Create a new register (or update token/password of existing one) user with token';
+    protected $description = 'Create a new user that have the ability to register new users via API with token (or update the existing one)';
 
     /**
      * Execute the console command.
