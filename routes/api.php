@@ -24,12 +24,12 @@ Route::post('hoqu/register', [ApiController::class, 'register'])->middleware(['a
 Route::prefix('hoqu')->group(function () {
 
 
-  Route::post('store', [ApiController::class, 'store']);
+  Route::post('store', [ApiController::class, 'store'])->middleware('auth:sanctum');
 
 
   /**
    * Authentication with username and password
    * release a special token with register-users ability
    */
-  Route::post('register-login', [ApiController::class, 'registerLogin']);
-})->middleware('auth:sanctum');
+  Route::post('register-login', [ApiController::class, 'registerLogin'])->middleware('auth:sanctum');
+});
