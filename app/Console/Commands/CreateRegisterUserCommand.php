@@ -39,7 +39,7 @@ HOQU_REGISTER_USERNAME={$user->email}
 HOQU_REGISTER_PASSWORD=$password
 EOT;
 
-        $this->info("Success! Now you can copy these lines in .env file on your caller/processor instance");
+        $this->info("Success! Now you can copy these lines in .env file on your caller/processor instance, then launch `php artisan config:clear` and `php artisan hoqu:register-user` to establish connection between hoqu and caller/processor");
         $this->newLine();
         $this->line($checkStr);
         $this->newLine();
