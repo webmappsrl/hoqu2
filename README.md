@@ -136,16 +136,22 @@ Xdebug potrebbe non trovare il file di log configurato nel .ini, quindi generare
 
 ### Procedura di inserimento caller/processor su hoqu
 
--   Procedura di collegamento hoqu/caller o hoqu/processor
-    -   Generare SU HOQU un nuovo token/utente (se non lo si ha già) con abilità di registrazione nuovi utenti tramite il comando:
+Procedura di collegamento hoqu/caller o hoqu/processor
+
+1. Generare SU HOQU un nuovo token/utente (se non lo si ha già) con abilità di registrazione nuovi utenti tramite il comando:
+
     ```php
         php artisan hoqu:create-register-user
     ```
+
     Il comando resituirà due valori `HOQU_REGISTER_USERNAME` e `HOQU_REGISTER_PASSWORD`
-    -   Una volta recuperati questi due valori, seguire le istruzioni del comando precedente e aggiornare il file `.env` SU PROCESSOR/CALLER
-    -   Una volta aggiornato il file `.env` lanciare SU PROCESSOR/CALLER:
+
+2. Una volta recuperati questi due valori, seguire le istruzioni del comando precedente e aggiornare il file `.env` SU PROCESSOR/CALLER
+3. Una volta aggiornato il file `.env` lanciare SU PROCESSOR/CALLER:
+
     ```php
         php artisan cache:clear
         php artisan hoqu:register-user
     ```
-        Questo ultimo comando genererà un nuovo utente SU HOQU con token. Le credenziali di questo utente (password,token,username) verranno salvati automaticamente nel file `.env` SU PROCESSOR/CALLER
+
+    Questo ultimo comando genererà un nuovo utente SU HOQU con token. Le credenziali di questo utente (password,token,username) verranno salvati automaticamente nel file `.env` SU PROCESSOR/CALLER
