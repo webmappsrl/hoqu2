@@ -21,15 +21,12 @@ use Illuminate\Support\Facades\Route;
 Route::post('hoqu/register', [ApiController::class, 'register'])->middleware(['auth:sanctum', 'abilities:register-users']);
 
 
-Route::prefix('hoqu')->group(function () {
+
+Route::post('hoqu/store', [ApiController::class, 'store'])->middleware('auth:sanctum');
 
 
-  Route::post('store', [ApiController::class, 'store'])->middleware('auth:sanctum');
-
-
-  /**
-   * Authentication with username and password
-   * release a special token with register-users ability
-   */
-  Route::post('register-login', [ApiController::class, 'registerLogin'])->middleware('auth:sanctum');
-});
+/**
+ * Authentication with username and password
+ * release a special token with register-users ability
+ */
+Route::post('hoqu/register-login', [ApiController::class, 'registerLogin']);
