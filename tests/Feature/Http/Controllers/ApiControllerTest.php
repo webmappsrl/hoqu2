@@ -21,7 +21,7 @@ class ApiControllerTest extends TestCase
      */
     public function test_store_unauthorized_existence()
     {
-        $response = $this->postJson('/api/store');
+        $response = $this->postJson('/api/hoqu/store');
 
         $response->assertUnauthorized()
             ->assertJson(
@@ -47,7 +47,7 @@ class ApiControllerTest extends TestCase
             "type" => "Point",
             "coordinates" => [1, 2]
         ]];
-        $response = $this->actingAs($user)->postJson('/api/store', $data);
+        $response = $this->actingAs($user)->postJson('/api/hoqu/store', $data);
 
         $jobId = $response['job_id'];
 
