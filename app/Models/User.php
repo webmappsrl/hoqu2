@@ -6,8 +6,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 
 use Wm\WmPackage\Model\User as Authenticable;
-use Illuminate\Database\Eloquent\Casts\AsCollection;
-use Illuminate\Database\Eloquent\Casts\AsArrayObject;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticable
@@ -49,4 +48,18 @@ class User extends Authenticable
         'hoqu_processor_capabilites' => 'array', //TODO: add custom casting with enum
         'hoqu_roles' => 'array' //TODO: add custom casting with enum
     ];
+
+
+    /**
+     * CHATGPT:
+     * This code is a method of a class that creates a relationship between
+     * the class and the HoquJob model.
+     * The method returns all HoquJob objects associated with the processor_id of the class.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function hoquJobs()
+    {
+        return $this->hasMany(HoquJob::class, 'processor_id');
+    }
 }

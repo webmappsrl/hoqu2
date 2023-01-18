@@ -129,4 +129,21 @@ class UserService
 
     return $name;
   }
+
+
+  /**
+   * Undocumented function
+   *
+   * @param [type] $job
+   * @return void
+   */
+  public function getProcessorByJob($job)
+  {
+
+    //TODO: to test
+    return User::whereJsonContains('hoqu_processor_capabilites', 'processor')
+      ->whereJsonContains('hoqu_roles', $job)
+      ->withCount('hoquJobs')
+      ->get();
+  }
 }
