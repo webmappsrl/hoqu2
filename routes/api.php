@@ -15,5 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/**
+ * Only users with special token ability can register users
+ */
+Route::post('hoqu/register', [ApiController::class, 'register'])->middleware(['auth:sanctum', 'abilities:register-users']);
 
-Route::post('store', [ApiController::class, 'store'])->middleware('auth:sanctum');
+
+
+Route::post('hoqu/store', [ApiController::class, 'store'])->middleware('auth:sanctum');
+
+
+/**
+ * Authentication with username and password
+ * release a special token with register-users ability
+ */
+Route::post('hoqu/register-login', [ApiController::class, 'registerLogin']);
