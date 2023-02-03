@@ -141,7 +141,7 @@ class UserService
   {
 
     //TODO: to test
-    return User::whereJsonContains('hoqu_processor_capabilites', 'processor')
+    return User::whereJsonContains('hoqu_processor_capabilities', 'processor')
       ->whereJsonContains('hoqu_roles', $job)
       ->withCount('hoquJobs')
       ->get();

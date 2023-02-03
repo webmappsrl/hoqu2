@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Services\HoquJobService;
+
 /**
  * StoreJob class
  *
@@ -9,6 +11,10 @@ namespace App\Jobs;
  */
 class StoreJob extends AbstractOwnedJob
 {
+
+    protected $job_name;
+    protected $input;
+
     /**
      * Create a new store job instance.
      *
@@ -29,8 +35,9 @@ class StoreJob extends AbstractOwnedJob
      *
      * @return void
      */
-    public function handle()
+    public function handle(HoquJobService $jobService)
     {
         // TODO: implement step PROCESS (HOQU->PROCESSOR). trova il server opportuno (libero e capace) e chiamalo
+        $availableProcessor = $jobService->getAvailableProcessorUser($this->job_name);
     }
 }

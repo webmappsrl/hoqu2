@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\HoquJob;
-use App\Enums\HoquJobStatus;
 use Illuminate\Http\Request;
 use App\Services\UserService;
+use Wm\WmPackage\Enums\JobStatus;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -36,7 +36,7 @@ class ApiController extends Controller
 
         // HOQU JOB CREATION
         $hoquJob = HoquJob::create([
-            'status' => HoquJobStatus::New,
+            'status' => JobStatus::New,
             'input' => $inputAsString,
             'name' => $body->get('name'),
             'caller_id' => $request->user()->id

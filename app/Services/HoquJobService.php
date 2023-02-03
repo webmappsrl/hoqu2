@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
-use App\Models\LaravelJob;
+use App\Models\User;
 use App\Jobs\StoreJob;
 use App\Models\HoquJob;
+use App\Models\LaravelJob;
 
 /**
  * Services about HoquJob and its jobs
@@ -40,13 +41,18 @@ class HoquJobService
   /**
    * This should return an User/instance id that can execute a job based on input
    *
-   * @param [type] $input
-   * @return integer
+   * @param string $input
+   * @return \App\Models\User|false - User on success, false otherwise
    */
-  public function getAvailableProcesserId($input): int
+  public function getAvailableProcessorUser($job_name)
   {
-    //must return a valid User id
-    //TODO
-    return 1;
+    $r = User::whereJsonContains('hoqu_roles', 'processor')
+      ->whereJsonContains('hoqu_processor_capabilities', $job_name)
+      ->withCount('hoquJobs')
+      ->get();
+
+
+
+    return $r;
   }
 }
