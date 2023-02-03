@@ -42,17 +42,18 @@ class HoquJobService
    * This should return an User/instance id that can execute a job based on input
    *
    * @param string $input
-   * @return \App\Models\User|false - User on success, false otherwise
+   * @return \App\Models\User - User on success, false otherwise
+   *
+   * @throws Exception
    */
-  public function getAvailableProcessorUser($job_name)
+  public function getAvailableProcessorUser($job_name): User
   {
-    $r = User::whereJsonContains('hoqu_roles', 'processor')
+    $user = User::whereJsonContains('hoqu_roles', 'processor')
       ->whereJsonContains('hoqu_processor_capabilities', $job_name)
       ->withCount('hoquJobs')
-      ->get();
+      ->orderBy('hoqu_jobs_count')
+      ->firstOrFail();
 
-
-
-    return $r;
+    return $user;
   }
 }
