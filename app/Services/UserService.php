@@ -132,18 +132,21 @@ class UserService
 
 
   /**
-   * Undocumented function
+   * Returns an User instance that can execute a job based on job name/type
    *
-   * @param [type] $job
-   * @return void
+   * @param string $input
+   * @return \App\Models\User - User on success, false otherwise
+   *
+   * @throws Exception
    */
-  public function getProcessorByJob($job)
+  public function getAvailableProcessorUser($job_name): User
   {
-
-    //TODO: to test
-    return User::whereJsonContains('hoqu_processor_capabilities', 'processor')
-      ->whereJsonContains('hoqu_roles', $job)
+    $user = User::whereJsonContains('hoqu_roles', 'processor')
+      ->whereJsonContains('hoqu_processor_capabilities', $job_name)
       ->withCount('hoquJobs')
-      ->get();
+      ->orderBy('hoqu_jobs_count')
+      ->firstOrFail();
+
+    return $user;
   }
 }

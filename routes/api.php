@@ -21,7 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('hoqu/register', [ApiController::class, 'register'])->middleware(['auth:sanctum', 'abilities:register-users']);
 
 
-
+/**
+ * Where the caller ask to hoqu to execute a job
+ */
 Route::post('hoqu/store', [ApiController::class, 'store'])->middleware('auth:sanctum');
 
 

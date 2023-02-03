@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Services\HoquJobService;
+use App\Services\UserService;
 
 /**
  * StoreJob class
@@ -35,9 +36,12 @@ class StoreJob extends AbstractOwnedJob
      *
      * @return void
      */
-    public function handle(HoquJobService $jobService)
+    public function handle(UserService $userService)
     {
         // TODO: implement step PROCESS (HOQU->PROCESSOR). trova il server opportuno (libero e capace) e chiamalo
-        $availableProcessor = $jobService->getAvailableProcessorUser($this->job_name);
+        $availableProcessor = $userService->getAvailableProcessorUser($this->job_name);
+
+        // TODO: get endpoint
+        $availableProcessor->endpoint
     }
 }

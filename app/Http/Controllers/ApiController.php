@@ -53,14 +53,15 @@ class ApiController extends Controller
         $fields = $request->validate([
             'password' => 'required|string',
             'hoqu_roles' => 'required|array',
-            'endpoint' => 'required|string'
+            'endpoint' => 'required|string',
+            'hoqu_api_token' => 'required|string'
         ]);
 
         $arr = $userService->createInstanceUser(
             $request->ip(),
             $fields['password'], //plain text password
             $fields['hoqu_roles'],
-            'TODO', //TODO: hoku_api_token
+            $fields['hoqu_api_token'], // hoku_api_token
             $fields['endpoint'],
             $fields['hoqu_processor_capabilities'] ?? []
         );
