@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use App\Services\HoquJobService;
-use App\Enums\HoquJobStatus;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Wm\WmPackage\Enums\JobStatus;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * HoquJob class
@@ -32,7 +32,7 @@ class HoquJob extends Model
      */
     protected $casts = [
         //only some statuses are allowed
-        'status' => HoquJobStatus::class,
+        'status' => JobStatus::class,
     ];
 
     /**

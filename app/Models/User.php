@@ -24,7 +24,7 @@ class User extends Authenticable
         'password',
         'hoqu_api_token',
         'hoqu_roles',
-        'hoqu_processor_capabilites',
+        'hoqu_processor_capabilities',
         'endpoint'
     ];
 
@@ -45,7 +45,7 @@ class User extends Authenticable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'hoqu_processor_capabilites' => 'array', //TODO: add custom casting with enum
+        'hoqu_processor_capabilities' => 'array', //TODO: add custom casting with enum
         'hoqu_roles' => 'array' //TODO: add custom casting with enum
     ];
 

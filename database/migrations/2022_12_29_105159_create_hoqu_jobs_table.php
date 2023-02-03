@@ -15,7 +15,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('hoqu_jobs', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('status')->index();
             $table->string('name')->index();
             $table->longText('input');
