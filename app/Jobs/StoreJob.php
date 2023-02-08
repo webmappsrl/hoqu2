@@ -47,9 +47,16 @@ class StoreJob extends AbstractOwnedJob
         $availableProcessor = $userService->getAvailableProcessorUser($this->job_name);
 
         // Chiamalo per eseguire il job
-        $processorClient->do($availableProcessor, [
+        $response = $processorClient->do($availableProcessor, [
             'name' => $this->job_name,
             'input' => $this->input
         ]);
+
+        if ($response->ok()) {
+            //TODO: $this->info("Job succesfully created on remote processor. User : {$availableProcessor->name}(ID: $availableProcessor->id)");
+        } else {
+            //TODO: $this->error("Something went wrong sending job to processor");
+            dump($response->json());
+        }
     }
 }
