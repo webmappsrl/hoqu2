@@ -8,7 +8,7 @@ use Illuminate\Bus\Queueable;
 use App\Services\HoquJobService;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
-use Wm\WmPackage\Services\ProcessorClient;
+use Wm\WmPackage\Http\ProcessorClient;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
@@ -56,5 +56,5 @@ abstract class AbstractOwnedJob implements ShouldQueue
    *
    * @return void
    */
-  abstract public function handle(UserService $userService,  ProcessorClient $processorClient);
+  abstract public function handle(UserService $userService);
 }

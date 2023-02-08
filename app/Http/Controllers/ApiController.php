@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use Throwable;
 use App\Models\User;
 use App\Models\HoquJob;
 use Illuminate\Http\Request;
@@ -58,18 +60,24 @@ class ApiController extends Controller
     public function done(Request $request)
     {
 
-        $body = $request->json();
+        $fields = $request->validate([
+            'hoqu_job_id' => 'required|integer',
+            'output' => 'required|string'
+        ]);
 
         //retrieve job_id;
 
-        //TODO: update HoquJob ouput
-        //TODO: update HoquJob status
-        $hoquJob = HoquJob::where('...');
-
-        // LARAVEL JOB CREATION
-        $hoquJob->addDoneJob($body->get('output'));
-
-        return response(['message' => 'done', 'job_id' => $hoquJob->id]);
+        try {
+            //TODO: SOMETHING WRONG HERE
+            $hoquJob = HoquJob::findOrFail($fields['hoqu_job_id']);
+            // LARAVEL JOB CREATION (saves output and job status)
+            $job = $hoquJob->addDoneJob($fields['output']);
+            //TODO: send laravel job id?
+            $response = response(['message' => 'done', 'job_id' => $hoquJob->id]);
+        } catch (Exception | Throwable $error) {
+            $response = response(['message' => 'error', 'error' => $error->getMessage()]);
+        }
+        return $response;
     }
 
     public function register(Request $request, UserService $userService)

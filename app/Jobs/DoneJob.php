@@ -2,15 +2,14 @@
 
 namespace App\Jobs;
 
-use App\Services\HoquJobService;
 use App\Services\UserService;
-use Wm\WmPackage\Http\HoquClient;
-use Wm\WmPackage\Services\ProcessorClient;
+use Wm\WmPackage\Enums\JobStatus;
+use Wm\WmPackage\Facades\CallerClient;
 
 /**
- * StoreJob class
+ * Done class
  *
- * The store job that validate input and start the HokuJob pipeline
+ * The done job, when processor calls hoqu with job output
  */
 class DoneJob extends AbstractOwnedJob
 {
@@ -34,9 +33,24 @@ class DoneJob extends AbstractOwnedJob
      *
      * @return void
      */
-    public function handle(UserService $userService, ProcessorClient $processorClient)
+    public function handle(UserService $userService)
     {
-        //TODO: implement the CallerClient into wm-package
-        //TODO: implement the DONE DONE request to caller
+
+        $this->getHoquJob()->output = $this->output;
+
+        // Exec the done done call to caller
+        $response = CallerClient::done($this->getHoquJob()->caller, [
+            'hoqu_job_id' => $this->getHoquJob()->id,
+            'output' => $this->output
+        ]);
+
+        if ($response->ok()) {
+            //set status and save
+            $this->getHoquJob()->setStatusAndSave(JobStatus::Done);
+        } else {
+            //TODO: log something please
+            //set status and save
+            $this->getHoquJob()->setStatusAndSave(JobStatus::Error);
+        }
     }
 }

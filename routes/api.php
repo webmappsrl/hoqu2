@@ -23,9 +23,18 @@ Route::post('hoqu/register', [ApiController::class, 'register'])->middleware(['a
 
 /**
  * Where the caller ask to hoqu to execute a job
+ *
+ * POST /api/hoqu/store
  */
 Route::post('hoqu/store', [ApiController::class, 'store'])->middleware('auth:sanctum');
 
+
+/**
+ * Where the processor send to hoqu the job output
+ *
+ * POST /api/hoqu/done
+ */
+Route::post('hoqu/done', [ApiController::class, 'done'])->middleware('auth:sanctum');
 
 /**
  * Check if authtentication works from processors/callers

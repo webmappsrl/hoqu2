@@ -92,6 +92,19 @@ class HoquJob extends Model
      */
 
     /**
+     * Set HoquJob status and save the model
+     * TODO: move on new model services class
+     *
+     * @param JobStatus $status
+     * @return bool
+     */
+    public function setStatusAndSave(JobStatus $status)
+    {
+        $this->status = $status;
+        return $this->save();
+    }
+
+    /**
      * A service method wrapper to attach a LaravelJob to this model
      *
      * @param [type] $name
