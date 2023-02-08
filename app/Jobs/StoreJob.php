@@ -4,6 +4,8 @@ namespace App\Jobs;
 
 use App\Services\HoquJobService;
 use App\Services\UserService;
+use Wm\WmPackage\Http\HoquClient;
+use Wm\WmPackage\Services\ProcessorClient;
 
 /**
  * StoreJob class
@@ -36,12 +38,18 @@ class StoreJob extends AbstractOwnedJob
      *
      * @return void
      */
-    public function handle(UserService $userService)
+    public function handle(UserService $userService, ProcessorClient $processorClient)
     {
-        // TODO: implement step PROCESS (HOQU->PROCESSOR). trova il server opportuno (libero e capace) e chiamalo
+        //TODO: getAvailableProcessorUser lancia un eccezione se non è riuscito a trovare l'utente,
+        // gestire questa casistica (chiamo il caller e gli dico failed?)
+
+        // Trova il server opportuno (libero e capace)
         $availableProcessor = $userService->getAvailableProcessorUser($this->job_name);
 
-        // TODO: get endpoint
-        $availableProcessor->endpoint
+        // Chiamalo per eseguire il job
+        $processorClient->do($availableProcessor, [
+            'name' => $this->job_name,
+            'input' => $this->input
+        ]);
     }
 }
