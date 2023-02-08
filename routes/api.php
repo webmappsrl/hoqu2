@@ -28,6 +28,13 @@ Route::post('hoqu/store', [ApiController::class, 'store'])->middleware('auth:san
 
 
 /**
+ * Check if authtentication works from processors/callers
+ */
+Route::get('hoqu/ping', function () {
+  return 'pong';
+})->middleware('auth:sanctum');
+
+/**
  * Authentication with username and password
  * release a special token with register-users ability
  */
