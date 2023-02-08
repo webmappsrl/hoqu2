@@ -54,7 +54,8 @@ class ApiController extends Controller
             'password' => 'required|string',
             'hoqu_roles' => 'required|array',
             'endpoint' => 'required|string',
-            'hoqu_api_token' => 'required|string'
+            'hoqu_api_token' => 'required|string',
+            'hoqu_processor_capabilities' => 'array'
         ]);
 
         $arr = $userService->createInstanceUser(
