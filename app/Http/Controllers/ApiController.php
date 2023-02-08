@@ -48,6 +48,30 @@ class ApiController extends Controller
         return response(['message' => 'created', 'job_id' => $hoquJob->id]);
     }
 
+
+    /**
+     * Receive done job from processor
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function done(Request $request)
+    {
+
+        $body = $request->json();
+
+        //retrieve job_id;
+
+        //TODO: update HoquJob ouput
+        //TODO: update HoquJob status
+        $hoquJob = HoquJob::where('...');
+
+        // LARAVEL JOB CREATION
+        $hoquJob->addDoneJob($body->get('output'));
+
+        return response(['message' => 'done', 'job_id' => $hoquJob->id]);
+    }
+
     public function register(Request $request, UserService $userService)
     {
         $fields = $request->validate([

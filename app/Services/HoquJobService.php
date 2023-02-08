@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Jobs\StoreJob;
+use App\Jobs\DoneJob;
 use App\Models\HoquJob;
 use App\Models\LaravelJob;
 
@@ -23,6 +24,18 @@ class HoquJobService
   public function addStoreJob(HoquJob $hoquJob, string $name, $input)
   {
     StoreJob::dispatch($hoquJob, $name, $input)->onQueue('store');
+  }
+
+  /**
+   * Create a new Job of type DONE
+   *
+   * @param HoquJob $hoquJob
+   * @param string $output
+   * @return void
+   */
+  public function addDoneJob(HoquJob $hoquJob, string $output)
+  {
+    DoneJob::dispatch($hoquJob, $output)->onQueue('done');
   }
 
   /**

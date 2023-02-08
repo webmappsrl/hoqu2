@@ -102,4 +102,16 @@ class HoquJob extends Model
     {
         $this->hoquJobService->addStoreJob($this, $name, $input);
     }
+
+    /**
+     * A service method wrapper to attach a LaravelJob to this model
+     *
+     * @param [type] $name
+     * @param [type] $input
+     * @return void
+     */
+    public function addDoneJob($output)
+    {
+        $this->hoquJobService->addDoneJob($this, $output);
+    }
 }
