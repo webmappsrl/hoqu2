@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use Throwable;
 use App\Models\User;
 use App\Models\HoquJob;
-use App\Enums\HoquJobStatus;
 use Illuminate\Http\Request;
 use App\Services\UserService;
+use Wm\WmPackage\Enums\JobStatus;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -36,7 +38,7 @@ class ApiController extends Controller
 
         // HOQU JOB CREATION
         $hoquJob = HoquJob::create([
-            'status' => HoquJobStatus::New,
+            'status' => JobStatus::New,
             'input' => $inputAsString,
             'name' => $body->get('name'),
             'caller_id' => $request->user()->id
@@ -48,19 +50,51 @@ class ApiController extends Controller
         return response(['message' => 'created', 'job_id' => $hoquJob->id]);
     }
 
+
+    /**
+     * Receive done job from processor
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function done(Request $request)
+    {
+
+        $fields = $request->validate([
+            'hoqu_job_id' => 'required|integer',
+            'output' => 'required|string'
+        ]);
+
+        //retrieve job_id;
+
+        try {
+            //TODO: SOMETHING WRONG HERE
+            $hoquJob = HoquJob::findOrFail($fields['hoqu_job_id']);
+            // LARAVEL JOB CREATION (saves output and job status)
+            $job = $hoquJob->addDoneJob($fields['output']);
+            //TODO: send laravel job id?
+            $response = response(['message' => 'done', 'job_id' => $hoquJob->id]);
+        } catch (Exception | Throwable $error) {
+            $response = response(['message' => 'error', 'error' => $error->getMessage()]);
+        }
+        return $response;
+    }
+
     public function register(Request $request, UserService $userService)
     {
         $fields = $request->validate([
             'password' => 'required|string',
             'hoqu_roles' => 'required|array',
-            'endpoint' => 'required|string'
+            'endpoint' => 'required|string',
+            'hoqu_api_token' => 'required|string',
+            'hoqu_processor_capabilities' => 'array'
         ]);
 
         $arr = $userService->createInstanceUser(
             $request->ip(),
             $fields['password'], //plain text password
             $fields['hoqu_roles'],
-            'TODO', //TODO: hoku_api_token
+            $fields['hoqu_api_token'], // hoku_api_token
             $fields['endpoint'],
             $fields['hoqu_processor_capabilities'] ?? []
         );

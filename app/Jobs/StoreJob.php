@@ -2,6 +2,10 @@
 
 namespace App\Jobs;
 
+use App\Services\UserService;
+use Wm\WmPackage\Enums\JobStatus;
+use Wm\WmPackage\Facades\ProcessorClient;
+
 /**
  * StoreJob class
  *
@@ -9,6 +13,10 @@ namespace App\Jobs;
  */
 class StoreJob extends AbstractOwnedJob
 {
+
+    protected $job_name;
+    protected $input;
+
     /**
      * Create a new store job instance.
      *
@@ -29,8 +37,29 @@ class StoreJob extends AbstractOwnedJob
      *
      * @return void
      */
-    public function handle()
+    public function handle(UserService $userService)
     {
-        // TODO: implement step PROCESS (HOQU->PROCESSOR). trova il server opportuno (libero e capace) e chiamalo
+        //TODO: getAvailableProcessorUser lancia un eccezione se non è riuscito a trovare l'utente,
+        // gestire questa casistica (chiamo il caller e gli dico failed?)
+
+        // Trova il server opportuno (libero e capace)
+        $availableProcessor = $userService->getAvailableProcessorUser($this->job_name);
+
+        // Chiamalo per eseguire il job
+        $response = ProcessorClient::process($availableProcessor, [
+            'hoqu_job_id' => $this->getHoquJob()->id,
+            'name' => $this->job_name,
+            'input' => $this->input
+        ]);
+
+        if ($response->ok()) {
+            //TODO: $this->info("Job succesfully created on remote processor. User : {$availableProcessor->name}(ID: $availableProcessor->id)");
+            //TODO: handle response?
+            $this->getHoquJob()->setStatusAndSave(JobStatus::Progress);
+        } else {
+            //TODO: $this->error("Something went wrong sending job to processor");
+            $this->getHoquJob()->setStatusAndSave(JobStatus::Error);
+            //dump($response->json());
+        }
     }
 }

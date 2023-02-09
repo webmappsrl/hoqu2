@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
-use App\Models\LaravelJob;
+use App\Models\User;
 use App\Jobs\StoreJob;
+use App\Jobs\DoneJob;
 use App\Models\HoquJob;
+use App\Models\LaravelJob;
 
 /**
  * Services about HoquJob and its jobs
@@ -25,6 +27,18 @@ class HoquJobService
   }
 
   /**
+   * Create a new Job of type DONE
+   *
+   * @param HoquJob $hoquJob
+   * @param string $output
+   * @return void
+   */
+  public function addDoneJob(HoquJob $hoquJob, string $output)
+  {
+    DoneJob::dispatch($hoquJob, $output)->onQueue('done');
+  }
+
+  /**
    * Attach a LaravelJob model to HoquJob model 1:N relation
    *
    * @param LaravelJob $job
@@ -34,19 +48,5 @@ class HoquJobService
   public function addJobToHoquJob(LaravelJob $job, HoquJob $hoquJob)
   {
     $hoquJob->laravelJobs()->save($job);
-  }
-
-
-  /**
-   * This should return an User/instance id that can execute a job based on input
-   *
-   * @param [type] $input
-   * @return integer
-   */
-  public function getAvailableProcesserId($input): int
-  {
-    //must return a valid User id
-    //TODO
-    return 1;
   }
 }

@@ -3,9 +3,12 @@
 namespace App\Jobs;
 
 use App\Models\HoquJob;
+use App\Services\UserService;
 use Illuminate\Bus\Queueable;
+use App\Services\HoquJobService;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
+use Wm\WmPackage\Http\ProcessorClient;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
@@ -53,5 +56,5 @@ abstract class AbstractOwnedJob implements ShouldQueue
    *
    * @return void
    */
-  abstract public function handle();
+  abstract public function handle(UserService $userService);
 }

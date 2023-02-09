@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use App\Services\HoquJobService;
-use App\Enums\HoquJobStatus;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Wm\WmPackage\Enums\JobStatus;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * HoquJob class
@@ -32,7 +32,7 @@ class HoquJob extends Model
      */
     protected $casts = [
         //only some statuses are allowed
-        'status' => HoquJobStatus::class,
+        'status' => JobStatus::class,
     ];
 
     /**
@@ -92,6 +92,19 @@ class HoquJob extends Model
      */
 
     /**
+     * Set HoquJob status and save the model
+     * TODO: move on new model services class
+     *
+     * @param JobStatus $status
+     * @return bool
+     */
+    public function setStatusAndSave(JobStatus $status)
+    {
+        $this->status = $status;
+        return $this->save();
+    }
+
+    /**
      * A service method wrapper to attach a LaravelJob to this model
      *
      * @param [type] $name
@@ -101,5 +114,17 @@ class HoquJob extends Model
     public function addStoreJob($name, $input)
     {
         $this->hoquJobService->addStoreJob($this, $name, $input);
+    }
+
+    /**
+     * A service method wrapper to attach a LaravelJob to this model
+     *
+     * @param [type] $name
+     * @param [type] $input
+     * @return void
+     */
+    public function addDoneJob($output)
+    {
+        $this->hoquJobService->addDoneJob($this, $output);
     }
 }

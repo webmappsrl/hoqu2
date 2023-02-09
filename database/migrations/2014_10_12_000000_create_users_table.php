@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('hoqu_api_token', 100)->nullable();
             $table->string('endpoint')->nullable();
             $table->json('hoqu_roles')->nullable();
-            $table->json('hoqu_processor_capabilites')->nullable();
+            $table->json('hoqu_processor_capabilities')->nullable();
         });
     }
 

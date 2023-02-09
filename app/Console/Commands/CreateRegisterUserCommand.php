@@ -13,7 +13,8 @@ class CreateRegisterUserCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'hoqu:create-register-user';
+    protected $signature = 'hoqu:create-register-user
+    {--password=false : the password to use to register user}';
 
 
     /**
@@ -31,7 +32,12 @@ class CreateRegisterUserCommand extends Command
     public function handle(UserService $userService)
     {
 
-        $password = $this->ask('Please insert the password of register user');
+        if ($this->option('password') !== 'false') {
+            $password = $this->option('password');
+        } else {
+            $password = $this->ask('Please insert the password of register user');
+        }
+
         $user = $userService->createRegisterUser($password);
 
         $checkStr = <<<EOT
