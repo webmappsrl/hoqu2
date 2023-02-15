@@ -1,7 +1,5 @@
 # Laravel Hoqu 2
 
-## Laravel 9 Project based on Nova 4
-
 Hoqu 2 in Laravel 9 basato su php 8.1 e posgres + postgis. Supporto locale per web server php ed xdebug.
 
 ## INSTALL
@@ -15,6 +13,14 @@ geobox_install hoqu2
 ```
 
 Important NOTE: remember to checkout the develop branch.
+
+## Run hoqu2 server from shell outside docker
+
+In order to start a hoqu server in local environment use the following command:
+
+```sh
+geobox_serve hoqu2
+```
 
 ### Differenze ambiente produzione locale
 
