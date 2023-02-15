@@ -8,6 +8,7 @@ First of all install the [GEOBOX](https://github.com/webmappsrl/geobox) repo and
 
 ```sh
 git clone git@github.com:webmappsrl/hoqu2.git
+cd hoqu2
 bash docker/init-docker.sh
 geobox_install hoqu2
 ```
