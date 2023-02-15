@@ -2212,16 +2212,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.3.8",
+            "version": "2.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "c493585c130544c4e91d2e0e131e6d35cb0cbc47"
+                "reference": "c1e114f74e518daca2729ea8c4bf1167038fa4b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/c493585c130544c4e91d2e0e131e6d35cb0cbc47",
-                "reference": "c493585c130544c4e91d2e0e131e6d35cb0cbc47",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/c1e114f74e518daca2729ea8c4bf1167038fa4b5",
+                "reference": "c1e114f74e518daca2729ea8c4bf1167038fa4b5",
                 "shasum": ""
             },
             "require": {
@@ -2314,7 +2314,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-10T16:02:17+00:00"
+            "time": "2023-02-15T14:07:24+00:00"
         },
         {
             "name": "league/config",
@@ -7028,12 +7028,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmappsrl/wm-package.git",
-                "reference": "ae8f6eddf9c66441c7fadc83b8deb5eadd143d03"
+                "reference": "4d4da2abb775d9bcd0faaed867bc79434a07d3d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmappsrl/wm-package/zipball/ae8f6eddf9c66441c7fadc83b8deb5eadd143d03",
-                "reference": "ae8f6eddf9c66441c7fadc83b8deb5eadd143d03",
+                "url": "https://api.github.com/repos/webmappsrl/wm-package/zipball/4d4da2abb775d9bcd0faaed867bc79434a07d3d8",
+                "reference": "4d4da2abb775d9bcd0faaed867bc79434a07d3d8",
                 "shasum": ""
             },
             "require": {
@@ -7098,7 +7098,7 @@
                 "issues": "https://github.com/webmappsrl/wm-package/issues",
                 "source": "https://github.com/webmappsrl/wm-package/tree/main"
             },
-            "time": "2023-02-01T10:31:28+00:00"
+            "time": "2023-02-15T15:21:19+00:00"
         }
     ],
     "packages-dev": [
