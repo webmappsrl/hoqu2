@@ -4,6 +4,18 @@
 
 Hoqu 2 in Laravel 9 basato su php 8.1 e posgres + postgis. Supporto locale per web server php ed xdebug.
 
+## INSTALL
+
+First of all install the [GEOBOX](https://github.com/webmappsrl/geobox) repo and configure the ALIASES command. 
+
+```sh
+git clone git@github.com:webmappsrl/hoqu2.git
+bash docker/init-docker.sh
+geobox_install hoqu2
+```
+
+Important NOTE: remember to checkout the develop branch.
+
 ### Differenze ambiente produzione locale
 
 Questo sistema di container docker è utilizzabile sia per lo sviluppo locale sia per un sistema in produzione. In locale abbiamo queste caratteristiche:
