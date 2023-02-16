@@ -44,6 +44,8 @@ class LaravelJob extends Resource
     public function fields(NovaRequest $request)
     {
         return [
+            ID::make()->sortable(),
+            //BelongsTo::make('Hoqu Job', 'hoquJob', HoquJob::class),
             Text::make('Queue', 'queue')->sortable(),
             Text::make('Payload', 'payload'),
             Number::make('Attempts', 'attempts'),
