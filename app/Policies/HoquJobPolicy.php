@@ -10,6 +10,12 @@ class HoquJobPolicy
 {
     use HandlesAuthorization;
 
+
+    public function before(User $user)
+    {
+        return $user->email === "team@webmapp.it";
+    }
+
     /**
      * Determine whether the user can view any models.
      *
@@ -18,7 +24,6 @@ class HoquJobPolicy
      */
     public function viewAny(User $user)
     {
-        return true;
     }
 
     /**
@@ -30,7 +35,6 @@ class HoquJobPolicy
      */
     public function view(User $user, HoquJob $hoquJob)
     {
-        return true;
     }
 
     /**
@@ -41,7 +45,6 @@ class HoquJobPolicy
      */
     public function create(User $user)
     {
-        return $user->email === "team@webmapp.it";
     }
 
     /**
@@ -53,7 +56,6 @@ class HoquJobPolicy
      */
     public function update(User $user, HoquJob $hoquJob)
     {
-        return $user->email === "team@webmapp.it";
     }
 
     /**
