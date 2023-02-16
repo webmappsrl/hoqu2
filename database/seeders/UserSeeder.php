@@ -15,6 +15,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        User::factory(10)->create(['hoqu_roles' => 'caller']);
+        User::factory(10)->create(['hoqu_roles' => 'processor']);
         User::factory()->create([
             'name' => 'Webmapp',
             'email' => 'team@webmapp.it',
