@@ -3,14 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+use Wm\WmPackage\Model\User as Authenticable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class User extends Authenticable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +22,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'hoqu_api_token',
+        'hoqu_roles',
+        'hoqu_processor_capabilities',
+        'endpoint'
     ];
 
     /**
@@ -40,5 +45,21 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'hoqu_processor_capabilities' => 'array', //TODO: add custom casting with enum
+        'hoqu_roles' => 'array' //TODO: add custom casting with enum
     ];
+
+
+    /**
+     * CHATGPT:
+     * This code is a method of a class that creates a relationship between
+     * the class and the HoquJob model.
+     * The method returns all HoquJob objects associated with the processor_id of the class.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function hoquJobs()
+    {
+        return $this->hasMany(HoquJob::class, 'processor_id');
+    }
 }

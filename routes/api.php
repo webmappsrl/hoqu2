@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,28 +15,36 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-// Public routes
-
-Route::post('/login', [AuthController::class, 'login']);
-
-
-
-
-
-// Protected routes
-
 /**
  * Only users with special token ability can register users
  */
-Route::post('/register', [AuthController::class, 'register'])
-    ->middleware(['auth:sanctum', 'abilities:create-users']);
+Route::post('hoqu/register', [ApiController::class, 'register'])->middleware(['auth:sanctum', 'abilities:register-users']);
+
 
 /**
+ * Where the caller ask to hoqu to execute a job
  *
+ * POST /api/hoqu/store
  */
-Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
-    Route::post('/logout', [AuthController::class, 'logout']);
-});
+Route::post('hoqu/store', [ApiController::class, 'store'])->middleware('auth:sanctum');
+
+
+/**
+ * Where the processor send to hoqu the job output
+ *
+ * POST /api/hoqu/done
+ */
+Route::post('hoqu/done', [ApiController::class, 'done'])->middleware('auth:sanctum');
+
+/**
+ * Check if authtentication works from processors/callers
+ */
+Route::get('hoqu/ping', function () {
+  return 'pong';
+})->middleware('auth:sanctum');
+
+/**
+ * Authentication with username and password
+ * release a special token with register-users ability
+ */
+Route::post('hoqu/register-login', [ApiController::class, 'registerLogin']);
