@@ -1,10 +1,10 @@
 # Laravel Hoqu 2
 
-Hoqu 2 in Laravel 9 basato su php 8.1 e posgres + postgis. Supporto locale per web server php ed xdebug.
+Hoqu 2 in Laravel 10 basato su php 8.1 e posgres + postgis. Supporto locale per web server php ed xdebug.
 
 ## INSTALL
 
-First of all install the [GEOBOX](https://github.com/webmappsrl/geobox) repo and configure the ALIASES command. 
+First of all install the [GEOBOX](https://github.com/webmappsrl/geobox) repo and configure the ALIASES command.
 
 ```sh
 git clone git@github.com:webmappsrl/hoqu2.git
