@@ -179,6 +179,7 @@ Procedura di collegamento hoqu/caller o hoqu/processor
 - Alessio Piccioli <alessiopiccioli@webmapp.it>  
 - Marco Baroncini <m.baroncini@cyberway.cloud>
 - Pedram Katanchi <pedramkatanchi@webmapp.it>
+- Giuseppe Bonfanti <giuseppebonfanti@webmapp.it>
 
 
 
