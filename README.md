@@ -174,3 +174,11 @@ Procedura di collegamento hoqu/caller o hoqu/processor
     ```
 
     Questo ultimo comando genererà un nuovo utente SU HOQU con token. Le credenziali di questo utente (password,token,username) verranno salvati automaticamente nel file `.env` SU PROCESSOR/CALLER
+
+### Authors
+- Alessio Piccioli <alessiopiccioli@webmapp.it>  
+- Marco Baroncini <m.baroncini@cyberway.cloud>
+- Pedram Katanchi <pedramkatanchi@webmapp.it>
+
+
+
