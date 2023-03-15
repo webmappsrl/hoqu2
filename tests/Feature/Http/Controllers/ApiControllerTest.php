@@ -1,6 +1,6 @@
 <?php
 
-// namespace Tests\Feature\Http\Controllers;
+namespace Tests\Feature\Http\Controllers;
 
 // use App\Models\HoquJob;
 use Tests\TestCase;
