@@ -2,14 +2,14 @@
 
 // namespace Tests\Feature\Services;
 
-// use Tests\TestCase;
+use Tests\TestCase;
 // use App\Models\User;
 // use Illuminate\Support\Str;
 // use App\Services\UserService;
 // use Illuminate\Support\Facades\Hash;
 
-// class UserServiceTest extends TestCase
-// {
+class UserServiceTest extends TestCase
+{
 
 //   public function setUp(): void
 //   {
@@ -35,4 +35,4 @@
 
 //     $this->assertTrue($user instanceof User);
 //   }
-// }
+}
