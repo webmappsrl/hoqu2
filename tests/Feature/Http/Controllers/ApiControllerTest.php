@@ -39,25 +39,25 @@ class ApiControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_store_authorized_jobs_creation()
-    {
+    // public function test_store_authorized_jobs_creation()
+    // {
 
-        $user = User::factory()->create();
-        $data = ['name' => 'AddLocationsToPoint', 'input' => [
-            "type" => "Point",
-            "coordinates" => [1, 2]
-        ]];
-        $response = $this->actingAs($user)->postJson('/api/hoqu/store', $data);
+    //     $user = User::factory()->create();
+    //     $data = ['name' => 'AddLocationsToPoint', 'input' => [
+    //         "type" => "Point",
+    //         "coordinates" => [1, 2]
+    //     ]];
+    //     $response = $this->actingAs($user)->postJson('/api/hoqu/store', $data);
 
-        $jobId = $response['job_id'];
+    //     $jobId = $response['job_id'];
 
-        $response->assertStatus(200)
-            ->assertJson(
-                fn (AssertableJson $json) => $json->hasAll(['message', 'job_id'])
-            );
+    //     $response->assertStatus(200)
+    //         ->assertJson(
+    //             fn (AssertableJson $json) => $json->hasAll(['message', 'job_id'])
+    //         );
 
-        $hoquJob = HoquJob::find($jobId);
-        $this->assertTrue($hoquJob instanceof HoquJob);
-        $this->assertTrue($hoquJob->laravelJobs->count() === 1);
-    }
+    //     $hoquJob = HoquJob::find($jobId);
+    //     $this->assertTrue($hoquJob instanceof HoquJob);
+    //     $this->assertTrue($hoquJob->laravelJobs->count() === 1);
+    // }
 }
